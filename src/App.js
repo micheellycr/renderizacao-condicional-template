@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from "styled-components";
 import TelaLogin from "./components/TelaLogin/TelaLogin";
 import TelaCadastro from "./components/TelaCadastro/TelaCadastro";
+import { useState } from "react";
+import TelaUsuarioCadastrado from "./components/TelaUsuarioCadastrado/TelaUsuarioCadastrado.js";
 
 const GlobalStyled = createGlobalStyle`
   *{
@@ -14,14 +16,42 @@ const MainContainer = styled.main`
 `
 
 function App() {
+  const [screen, setScreen] = useState("login")
 
-  return (
-    <MainContainer >
-      <GlobalStyled />
-      <TelaLogin />
-      <TelaCadastro />
-    </MainContainer>
-  );
-}
+  const goToCadastro = () => {
+    setScreen("cadastro")
+  }
 
+  const goToLogin = () => {
+    setScreen("login")
+  }
+
+  const goToUsuarioCadastrado = () => {
+    setScreen("usuarioCadastrado")
+  }
+
+  if (screen === "login"){
+    return (
+      <MainContainer >
+        <GlobalStyled />
+        <TelaLogin goToCadastro={goToCadastro} />
+        </MainContainer>
+    );
+  } else if (screen === "cadastro"){
+    return(
+      <MainContainer >
+        <GlobalStyled />
+        <TelaCadastro goToLogin={goToLogin}  goToUsuarioCadastrado={goToUsuarioCadastrado} />
+      </MainContainer>
+    );
+  } else if (screen === "usuarioCadastrado"){
+    return(
+      <MainContainer >
+        <GlobalStyled />
+        <TelaUsuarioCadastrado></TelaUsuarioCadastrado>
+      </MainContainer>
+    );
+  }
+  }
+    
 export default App;
